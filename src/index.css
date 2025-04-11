@@ -61,3 +61,46 @@ margin-top: 10px;
 button{
     cursor: pointer;
 }
+
+.main{    
+    border-radius: 41px;
+    border: 1px solid #fff;
+    padding: 5px 41px;
+    background: #fff;
+    cursor: pointer;
+}
+.box{
+    border: 1px solid #000000;
+    border-radius: 25px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+}
+
+
+.off-box{
+    transform: translateX(-33px);
+    -webkit-transform: translateX(-33px);
+    -moz-transform: translateX(-33px);
+    -ms-transform: translateX(-33px);
+    -o-transform: translateX(-33px);
+}
+.off{
+    background-color: red;
+    color: #fff;
+}
+.on{
+    background-color: rgb(0, 255, 106);
+    color: #000000;
+}
+.on-box{
+    transform: translateX(33px);
+    -webkit-transform: translateX(33px);
+    -moz-transform: translateX(33px);
+    -ms-transform: translateX(33px);
+    -o-transform: translateX(33px);
+}
