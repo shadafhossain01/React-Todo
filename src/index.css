@@ -70,7 +70,7 @@ button{
     cursor: pointer;
 }
 .box{
-    border: 1px solid #000000;
+    border: 1px solid #ffffff;
     border-radius: 25px;
     padding: 10px 14px;
     cursor: pointer;
@@ -103,4 +103,55 @@ button{
     -moz-transform: translateX(33px);
     -ms-transform: translateX(33px);
     -o-transform: translateX(33px);
+}
+
+li{
+    color: #000000;
+    background-color: #fff;
+    font-size: 30px;
+    list-style-type: none;
+    border: 1px solid #fff;
+    width: 460px;
+    padding: 5px 19px;
+    margin: 18px 0px;
+    border-radius: 15px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul{
+margin-top: 20px;
+}
+
+.buttons{
+    display: flex;
+    gap: 10px;
+}
+
+.buttons span{
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 15px;
+    display: inline-block;
+}
+
+.buttons button{
+    border: none;
+}
+
+.clearBtn{
+    background: #b10404;
+    padding: 15px 35px;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+}
+
+.checked{
+    text-decoration: line-through;
+}
+.unchecked{
+    text-decoration: none;
 }
