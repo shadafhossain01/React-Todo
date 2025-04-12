@@ -1,27 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaRegCheckCircle } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 
 const TodoList = () => {
     const [inputValue, setInputValue]=useState("")
-    const [task, setTask]=useState([])
-    const [isCheck, setCheck]=useState(false)
+    const [task, setTask]=useState(()=>{
+      let todo=localStorage.getItem("Todo")
+      if(todo){
+        let data=JSON.parse(todo)
+        return data
+      }
+       else if(!todo){
+        return []
+      }
+    })
     const [isupdate, setUpdate]=useState(false)
     const [isIndex,setIndex]=useState(null)
 
    const handleAddBtn=()=>{
     if(!inputValue) return;
-    if(task.includes(inputValue)){
+    if(task.some((item)=>item.value==inputValue)){
         setInputValue("")
         return;
     }
-    setTask((prev)=>[...prev,inputValue])
+    setTask((prev)=>[...prev,{value:inputValue,check:false}])
     setInputValue("")
    }
 
    const handleTodoDelete=(value)=>{
-    const newtask=task.filter((item)=> item !== value);
+    const newtask=task.filter((item)=> item.value !== value);
     setTask(newtask)
    }
 
@@ -30,27 +38,28 @@ const TodoList = () => {
    }
 
    const handleCheck=(index)=>{
-    const mark=task.map((item,i)=>{
-        if(i==index){
-        setCheck(!isCheck)
-        }
-    })
-    return mark
+    const mark=task.map((item,i)=>i === index ? { ...item, check: !item.check } : item)
+    setTask(mark)
    }
 
    const handleEdit=(index)=>{
-     setInputValue(task[index])
+     setInputValue(task[index].value)
     setUpdate(true)
     setIndex(index)
    }
 
    const handleUpdate=()=>{
     const newArr=[...task]
-    newArr[isIndex]=inputValue
+    newArr[isIndex]={...newArr[isIndex],value:inputValue}
     setTask(newArr)
     setInputValue("")
     setUpdate(false);
    }
+
+   // Add Local Storage
+   useEffect(() => {
+    localStorage.setItem("Todo", JSON.stringify(task))
+  }, [task])
 
   return (
     <>
@@ -60,11 +69,11 @@ const TodoList = () => {
     </div>
     <ul>
   {task.map((currentElement, index) => (
-    <li key={index} className={isCheck? "checked" : "unchecked"}>{currentElement}
+    <li key={index} className={currentElement.check? "checked" : "unchecked"}>{currentElement.value}
     <div className='buttons'>
     <button onClick={()=>handleCheck(index)}> <span style={{background:"green"}}><FaRegCheckCircle /></span> </button>
     <button onClick={()=> handleEdit(index)} > <span style={{background:"yellow"}} ><FaEdit/> </span></button>
-    <button onClick={()=>handleTodoDelete(currentElement)}> <span style={{background:"red"}} ><MdDeleteForever/> </span></button>
+    <button onClick={()=>handleTodoDelete(currentElement.value)}> <span style={{background:"red"}} ><MdDeleteForever/> </span></button>
     </div>
     </li>
   ))}
